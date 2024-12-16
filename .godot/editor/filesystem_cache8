@@ -1,9 +1,9 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1734326242
+::res://::1734364487
 icon.svg::CompressedTexture2D::624790264206994279::1734310222::1734310411::1::::<><>::
-main.tscn::PackedScene::2458096675302859552::1734326104::0::1::::<><>::uid://bqgrup86gqgh6::::res://main_screen.tscn
+main.tscn::PackedScene::2458096675302859552::1734326346::0::1::::<><>::uid://bqgrup86gqgh6::::res://main_screen.tscn
 main_screen.gd::GDScript::-1::1734326242::0::1::::<>Control<>::
-main_screen.tscn::PackedScene::3522897193427055781::1734326242::0::1::::<><>::uid://v52gvrta2186::::res://icons/menu_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png<>res://main_screen.gd<>uid://vg6mwcfm6ro8::::res://icons/add_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png<>uid://1bs0xkq5qvd3::::res://icons/restart_alt_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png<>uid://cuenvlwlam2mi::::res://single_plot.tscn
+main_screen.tscn::PackedScene::3522897193427055781::1734326346::0::1::::<><>::uid://v52gvrta2186::::res://icons/menu_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png<>res://main_screen.gd<>uid://1bs0xkq5qvd3::::res://icons/restart_alt_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png<>uid://cuenvlwlam2mi::::res://single_plot.tscn<>uid://drp4clvqd62yu::::res://icons/save_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png
 single_plot.tscn::PackedScene::6185703185983897420::1734324951::0::1::::<><>::res://addons/graph_2d/graph_2d.gd
 ::res://addons/::1734310222
 ::res://addons/graph_2d/::1734326093

@@ -263,6 +263,17 @@ text = "00.00%"
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="TextEdit" type="TextEdit" parent="Container/Content/Results2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Enter notes here..."
+context_menu_enabled = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+
 [node name="SinglePlot" parent="Container/Content" instance=ExtResource("3_w0kuu")]
 custom_minimum_size = Vector2(0, 1200)
 layout_mode = 2

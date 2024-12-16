@@ -8,8 +8,12 @@ var roast_wgt := 0.0
 var green_wgt := 0.0
 var wgt_loss := 0.0
 var development_percentage := 0.0
+var points: Array[Vector2] = []
+var event_points: Array[GraphPoint] = []
 
 var plot: PlotItem = null
+
+var _graph_point := preload("res://graph_point.tscn")
 
 @onready var graph := $Container/Content/SinglePlot/Graph2D
 
@@ -46,6 +50,24 @@ func _calculate_development() -> void:
 	# TODO: These are wrong
 
 
+func _calculate_final_development() -> void:
+	development_percentage = (first_crack_time - final_roast_time) / first_crack_time
+	development_out.text = str(development_percentage).pad_decimals(2)
+	# crack + x * crack = timer
+	# x * crack = timer - crack
+	# TODO: this is wrong
+
+
+func _crete_new_event_point(pos: Vector2, lbl: String, color: Color, font_color: Color = Color.WHITE) -> GraphPoint:
+	var pt_scn := _graph_point.instantiate()
+	if pos.y == 0:
+		pos.y = 500.0
+	pt_scn.position = pos
+	pt_scn.set_label.call_deferred(lbl, font_color)
+	pt_scn.set_color.call_deferred(color)
+	return pt_scn
+
+
 func _get_time_text(time: float) -> String:
 	var time_int := roundi(time)
 	var minutes := time_int / 60
@@ -65,18 +87,19 @@ func _on_start_btn_pressed() -> void:
 		_calculate_final_development()
 
 
-func _calculate_final_development() -> void:
-	development_percentage = (first_crack_time - final_roast_time) / first_crack_time
-	development_out.text = str(development_percentage).pad_decimals(2)
-	# crack + x * crack = timer
-	# x * crack = timer - crack
-	# TODO: this is wrong
-
-
 func _on_first_crack_btn_pressed() -> void:
 	first_crack_time = timer
 	_calculate_development()
 	#first_crack_btn.disabled = true
+	if plot == null:
+		plot = graph.add_plot_item("", Color.GREEN, 1.0)
+	var temp_time := timer
+	var temp_reading := float(temp_in.text)
+	var new_pt := _crete_new_event_point(
+		Vector2(temp_time, temp_reading), "First Crack", Color.BURLYWOOD, Color.BURLYWOOD
+	)
+	plot.add_event_point(new_pt, temp_reading != 0.0)
+	event_points.push_back(new_pt)
 
 
 func _on_roast_weight_in_text_changed(new_text: String) -> void:
@@ -87,12 +110,19 @@ func _on_roast_weight_in_text_changed(new_text: String) -> void:
 
 
 func _on_add_temp_btn_pressed() -> void:
+	var pt: Vector2
 	if plot == null:
-		plot = graph.add_plot_item("My Plot", Color.GREEN, 1.0)
-		plot.add_point(Vector2.ZERO)
-	var temp_time := timer # todo, fix graph to use time in minutes and seconds
+		plot = graph.add_plot_item("", Color.GREEN, 1.0)
+		pt = Vector2(0, 70)
+		plot.add_point(pt)
+		points.push_back(pt)
+	var temp_time := timer
 	var temp_reading := float(temp_in.text)
-	plot.add_point(Vector2(temp_time, temp_reading))
+	if temp_reading == 0.0:
+		return # not a number!
+	pt = Vector2(temp_time, temp_reading)
+	plot.add_point(pt)
+	points.push_back(pt)
 	
 
 
@@ -102,6 +132,7 @@ func _on_reset_btn_pressed() -> void:
 
 func _reset_all() -> void:
 	start_btn_status = false
+	start_btn.text = "Start"
 	timer = 0.0
 	first_crack_time = 0.0
 	final_roast_time = 0.0
@@ -109,6 +140,10 @@ func _reset_all() -> void:
 	green_wgt = 0.0
 	wgt_loss = 0.0
 	development_percentage = 0.0
+	points.clear()
+	for pt in event_points:
+		pt.queue_free()
+	event_points.clear()
 	graph.remove_all()
 	
 	name_in.text = ""

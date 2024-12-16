@@ -1,6 +1,6 @@
 res://main_screen.tscn
 res://main_screen.gd
+res://addons/graph_2d/custom_refcounted/plot_item.gd
+res://graph_point.tscn
 res://main.tscn
-res://single_plot.tscn
-res://addons/graph_2d/custom_nodes/grid.gd
-res://addons/graph_2d/graph_2d.gd
+res://graph_point.gd

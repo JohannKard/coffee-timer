@@ -32,7 +32,6 @@ var _LineCurve = preload("res://addons/graph_2d/custom_nodes/plot_2d.gd")
 var _points: PackedVector2Array
 var _graph
 
-
 func _init(obj, l, c, w):
 	_curve = _LineCurve.new()
 	_graph = obj
@@ -52,6 +51,20 @@ func add_point(pt: Vector2):
 	pt_px.y = remap(point.y, _graph.y_min, _graph.y_max, _graph.get_node("PlotArea").size.y, 0)
 	_curve.points_px.append(pt_px)
 	_curve.queue_redraw()
+
+
+func add_event_point(pt: GraphPoint, is_on_line: bool = false):
+	if is_on_line:
+		_points.append(pt.position)
+	var point = pt.position.clamp(Vector2(_graph.x_min, _graph.y_min), Vector2(_graph.x_max, _graph.y_max))
+	var pt_px: Vector2
+	pt_px.x = remap(point.x, _graph.x_min, _graph.x_max, 0, _graph.get_node("PlotArea").size.x)
+	pt_px.y = remap(point.y, _graph.y_min, _graph.y_max, _graph.get_node("PlotArea").size.y, 0)
+	if is_on_line:
+		_curve.points_px.append(pt_px)
+		_curve.queue_redraw()
+	pt.position = pt_px
+	_graph.get_node("PlotArea").add_child(pt)
 
 
 ## Remove point from plot
