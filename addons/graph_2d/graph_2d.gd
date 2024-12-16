@@ -255,7 +255,7 @@ func _update_graph() -> void:
 	assert(not is_inf(x_step), "y_step is infinite!")
 	
 	var x_axis_range: float = x_max - x_min
-	var hor_grad_number = _get_graduation_num(x_min, x_max, x_step, "hor")
+	var hor_grad_number = 16# JOHN: _get_graduation_num(x_min, x_max, x_step, "hor")
 	
 	# Plot area height in pixel
 	var area_height = size.y - _MARGIN_TOP - margin_bottom
@@ -300,7 +300,7 @@ func _update_graph() -> void:
 		var grad: Array = []
 		grad_px.x = margin_left + n * hor_grad_step_px
 		grad.append(grad_px)
-		var grad_text = "%0.1f" % (float(x_min) + n * float(x_axis_range)/(hor_grad_number-1))
+		var grad_text = str(n).pad_decimals(2)# JOHN: "%0.1f" % (float(x_min) + n * float(x_axis_range)/(hor_grad_number-1))
 		grad.append(grad_text)
 		hor_grad.append(grad)
 		

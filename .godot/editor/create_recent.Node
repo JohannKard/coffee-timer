@@ -1,9 +1,10 @@
-Button
+Graph2D
+Control
 Label
 HBoxContainer
+MarginContainer
 VBoxContainer
+Button
 Timer
 LineEdit
-Control
-Graph2D
 ColorRect
