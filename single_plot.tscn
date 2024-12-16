@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuenvlwlam2mi"]
+
+[ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="1_g53mf"]
+
+[node name="SinglePlot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Graph2D" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g53mf")
+x_max = 15.0
+x_label = "Minutes"
+y_max = 500.0
+y_label = "Degrees"
+background_color = Color(0.164706, 0.2, 0.239216, 1)
+grid_horizontal_visible = true
+grid_vertical_visible = true
