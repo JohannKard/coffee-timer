@@ -1,11 +1,12 @@
-VBoxContainer
 Label
-ColorRect
+LineEdit
+RichTextLabel
+Button
 Control
+HBoxContainer
+VBoxContainer
+ColorRect
 TextEdit
 Graph2D
-HBoxContainer
 MarginContainer
-Button
 Timer
-LineEdit

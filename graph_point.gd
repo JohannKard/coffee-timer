@@ -2,8 +2,8 @@ class_name GraphPoint
 extends Control
 
 
-@onready var label := $VBoxContainer/Label
-@onready var color_rect := $VBoxContainer/ColorRect
+@onready var label := $Label
+@onready var color_rect := $ColorRect
 
 
 func set_label(lbl: String, color: Color = Color.WHITE) -> void:

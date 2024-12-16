@@ -4,3 +4,4 @@ res://addons/graph_2d/custom_refcounted/plot_item.gd
 res://graph_point.tscn
 res://main.tscn
 res://graph_point.gd
+res://roast_log.gd

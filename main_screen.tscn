@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqgrup86gqgh6"]
+[gd_scene load_steps=8 format=3 uid="uid://bqgrup86gqgh6"]
 
 [ext_resource type="Texture2D" uid="uid://v52gvrta2186" path="res://icons/menu_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png" id="1_2wytl"]
 [ext_resource type="Script" path="res://main_screen.gd" id="1_vmxgf"]
 [ext_resource type="Texture2D" uid="uid://1bs0xkq5qvd3" path="res://icons/restart_alt_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png" id="3_p3a7j"]
 [ext_resource type="PackedScene" uid="uid://cuenvlwlam2mi" path="res://single_plot.tscn" id="3_w0kuu"]
 [ext_resource type="Texture2D" uid="uid://drp4clvqd62yu" path="res://icons/save_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png" id="4_n2fy2"]
+[ext_resource type="Texture2D" uid="uid://djq3tnrpugpvx" path="res://icons/add_16dp_E8EAED_FILL0_wght400_GRAD0_opsz20.png" id="5_jl56v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nix1x"]
 font_size = 32
@@ -73,7 +74,7 @@ layout_mode = 2
 theme_override_constants/separation = 12
 
 [node name="NameIn" type="LineEdit" parent="Container/Content/RoastInfo"]
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
@@ -85,9 +86,15 @@ middle_mouse_paste_enabled = false
 selecting_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="Control" type="Control" parent="Container/Content/RoastInfo"]
-custom_minimum_size = Vector2(50, 0)
+[node name="Label" type="Label" parent="Container/Content/RoastInfo"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Init. Heat"
+
+[node name="RoastSettingIn" type="LineEdit" parent="Container/Content/RoastInfo"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "00:00"
 
 [node name="DateLbl" type="Label" parent="Container/Content/RoastInfo"]
 layout_mode = 2
@@ -174,7 +181,7 @@ text = "00.00"
 
 [node name="RoastingTimes" type="HBoxContainer" parent="Container/Content"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 32
 alignment = 1
 
 [node name="StartBtn" type="Button" parent="Container/Content/RoastingTimes"]
@@ -192,26 +199,6 @@ theme_override_font_sizes/font_size = 64
 text = "00:00"
 horizontal_alignment = 1
 uppercase = true
-
-[node name="TempControls" type="HBoxContainer" parent="Container/Content/RoastingTimes/TimerGroup"]
-layout_mode = 2
-
-[node name="AddTempBtn" type="Button" parent="Container/Content/RoastingTimes/TimerGroup/TempControls"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Add Temp"
-
-[node name="TempIn" type="LineEdit" parent="Container/Content/RoastingTimes/TimerGroup/TempControls"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-placeholder_text = "Curr Temp"
-context_menu_enabled = false
-virtual_keyboard_type = 2
-shortcut_keys_enabled = false
-middle_mouse_paste_enabled = false
-selecting_enabled = false
-drag_and_drop_selection_enabled = false
 
 [node name="FirstCrackBtn" type="Button" parent="Container/Content/RoastingTimes"]
 custom_minimum_size = Vector2(200, 0)
@@ -259,11 +246,43 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "00.00%"
 
-[node name="Results2" type="HBoxContainer" parent="Container/Content"]
+[node name="GraphControls" type="HBoxContainer" parent="Container/Content"]
 layout_mode = 2
-size_flags_vertical = 3
+alignment = 1
 
-[node name="TextEdit" type="TextEdit" parent="Container/Content/Results2"]
+[node name="AddTempBtn" type="Button" parent="Container/Content/GraphControls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+icon = ExtResource("5_jl56v")
+
+[node name="TempIn" type="LineEdit" parent="Container/Content/GraphControls"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Curr. Temp"
+context_menu_enabled = false
+virtual_keyboard_type = 2
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Control" type="Control" parent="Container/Content/GraphControls"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="AddNoteBtn" type="Button" parent="Container/Content/GraphControls"]
+layout_mode = 2
+icon = ExtResource("5_jl56v")
+
+[node name="NoteIn" type="LineEdit" parent="Container/Content/GraphControls"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Graph Note"
+
+[node name="GenNoteIn" type="TextEdit" parent="Container/Content"]
+custom_minimum_size = Vector2(0, 500)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
@@ -275,12 +294,12 @@ middle_mouse_paste_enabled = false
 wrap_mode = 1
 
 [node name="SinglePlot" parent="Container/Content" instance=ExtResource("3_w0kuu")]
-custom_minimum_size = Vector2(0, 1200)
 layout_mode = 2
 size_flags_vertical = 3
 
 [connection signal="pressed" from="Container/Content/TopBar/ResetBtn" to="." method="_on_reset_btn_pressed"]
 [connection signal="text_changed" from="Container/Content/WgtDetails/RoastWeightIn" to="." method="_on_roast_weight_in_text_changed"]
 [connection signal="pressed" from="Container/Content/RoastingTimes/StartBtn" to="." method="_on_start_btn_pressed"]
-[connection signal="pressed" from="Container/Content/RoastingTimes/TimerGroup/TempControls/AddTempBtn" to="." method="_on_add_temp_btn_pressed"]
 [connection signal="pressed" from="Container/Content/RoastingTimes/FirstCrackBtn" to="." method="_on_first_crack_btn_pressed"]
+[connection signal="pressed" from="Container/Content/GraphControls/AddTempBtn" to="." method="_on_add_temp_btn_pressed"]
+[connection signal="pressed" from="Container/Content/GraphControls/AddNoteBtn" to="." method="_on_add_note_btn_pressed"]
