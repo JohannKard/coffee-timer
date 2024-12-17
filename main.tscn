@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbayq1bgnyocu"]
+[gd_scene load_steps=4 format=3 uid="uid://bbayq1bgnyocu"]
 
 [ext_resource type="PackedScene" uid="uid://bqgrup86gqgh6" path="res://main_screen.tscn" id="1_eky5y"]
+[ext_resource type="Script" path="res://main.gd" id="1_mldjw"]
+[ext_resource type="PackedScene" uid="uid://cg4fy2iu0edfb" path="res://log_list.tscn" id="3_0g8nf"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,6 +11,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_mldjw")
 
 [node name="MainScreen" parent="." instance=ExtResource("1_eky5y")]
 layout_mode = 1
+
+[node name="LogList" parent="." instance=ExtResource("3_0g8nf")]
+visible = false
+layout_mode = 1
+
+[connection signal="on_menu_click" from="MainScreen" to="." method="_on_main_screen_on_menu_click"]
+[connection signal="on_save" from="MainScreen" to="." method="_on_main_screen_on_save"]

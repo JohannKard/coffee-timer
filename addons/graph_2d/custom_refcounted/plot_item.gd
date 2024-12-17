@@ -26,7 +26,7 @@ var thickness: float = 1.0:
 		if value > 0.0:
 			thickness = value
 			_curve.width = thickness
-		
+
 var _curve
 var _LineCurve = preload("res://addons/graph_2d/custom_nodes/plot_2d.gd")
 var _points: PackedVector2Array

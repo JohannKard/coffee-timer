@@ -43,7 +43,6 @@ theme_override_constants/margin_bottom = 32
 [node name="Content" type="VBoxContainer" parent="Container"]
 layout_mode = 2
 theme_override_constants/separation = 16
-script = ExtResource("1_vmxgf")
 
 [node name="TopBar" type="HBoxContainer" parent="Container/Content"]
 layout_mode = 2
@@ -117,13 +116,14 @@ theme_override_font_sizes/font_size = 32
 text = "Green Weight:"
 
 [node name="GreenWeightIn" type="LineEdit" parent="Container/Content/WgtDetails"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
+text = "100.0"
 placeholder_text = "Green Wgt (g)"
+alignment = 2
 context_menu_enabled = false
 virtual_keyboard_type = 3
-clear_button_enabled = true
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
 selecting_enabled = false
@@ -139,13 +139,12 @@ theme_override_font_sizes/font_size = 32
 text = "Roast Weight:"
 
 [node name="RoastWeightIn" type="LineEdit" parent="Container/Content/WgtDetails"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-placeholder_text = "Roast Wgt (g)"
+placeholder_text = "Wgt (g)"
 context_menu_enabled = false
 virtual_keyboard_type = 3
-clear_button_enabled = true
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
 selecting_enabled = false
@@ -297,8 +296,9 @@ wrap_mode = 1
 layout_mode = 2
 size_flags_vertical = 3
 
+[connection signal="pressed" from="Container/Content/TopBar/MenuBtn" to="." method="_on_menu_btn_pressed"]
 [connection signal="pressed" from="Container/Content/TopBar/ResetBtn" to="." method="_on_reset_btn_pressed"]
-[connection signal="text_changed" from="Container/Content/WgtDetails/RoastWeightIn" to="." method="_on_roast_weight_in_text_changed"]
+[connection signal="pressed" from="Container/Content/TopBar/SaveBtn" to="." method="_on_save_btn_pressed"]
 [connection signal="pressed" from="Container/Content/RoastingTimes/StartBtn" to="." method="_on_start_btn_pressed"]
 [connection signal="pressed" from="Container/Content/RoastingTimes/FirstCrackBtn" to="." method="_on_first_crack_btn_pressed"]
 [connection signal="pressed" from="Container/Content/GraphControls/AddTempBtn" to="." method="_on_add_temp_btn_pressed"]
