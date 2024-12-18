@@ -26,9 +26,17 @@ func _save_log(log_res_ref: RoastLog) -> void:
 
 func _on_main_screen_on_save(log_res_ref: RoastLog) -> void:
 	_save_log(log_res_ref)
+	roast_logs.push_back(log_res_ref)
 
 
 func _on_main_screen_on_menu_click() -> void:
 	$MainScreen.hide()
 	$LogList.show()
 	$LogList.load_logs(roast_logs)
+
+
+func _on_log_list_on_view_entry(data: RoastLog) -> void:
+	$MainScreen.show()
+	$LogList.hide()
+	$MainScreen.load_log(data)
+	

@@ -24,6 +24,7 @@ var _graph_point := preload("res://graph_point.tscn")
 @onready var rst_wgt_in: LineEdit = $Container/Content/WgtDetails/RoastWeightIn
 @onready var temp_in: LineEdit = $Container/Content/GraphControls/TempIn
 @onready var note_in: LineEdit = $Container/Content/GraphControls/NoteIn
+@onready var general_notes_in: TextEdit = $Container/Content/GenNoteIn
 
 @onready var date_out: Label = $Container/Content/RoastInfo/DateOut
 @onready var wgt_loss_out: Label = $Container/Content/RoastResults/WeightLossOut
@@ -50,7 +51,24 @@ func _process(delta: float) -> void:
 
 func load_log(log_in: RoastLog) -> void:
 	data = log_in
-	# TODO: regenerate roast details on graph and screen
+	name_in.text = data.roast_name
+	roast_setting_in.text = data.initial_roaster_heat
+	grn_wgt_in.text = str(data.green_wgt)
+	rst_wgt_in.text = str(data.roast_wgt)
+	date_out.text = data.roast_date
+	wgt_loss_out.text = str(data.wgt_loss)
+	first_crack_out.text = str(data.first_crack_time)
+	timer_display.text = str(data.final_roast_time)
+	development_out.text = str(data.development_percentage)
+	general_notes_in.text = data.general_notes
+	_calculate_development()
+	if plot == null:
+		plot = graph.add_plot_item("Roast 1", Color.GREEN, 1.0)
+	for pt in data.points:
+		plot.add_point(pt)
+	for pt in data.event_points:
+		plot.add_event_point(pt)
+		# TODO: fix this since it can't save node info, needs to be raw data to reinit
 
 
 func _calculate_development() -> void:
@@ -155,6 +173,8 @@ func _on_add_note_btn_pressed() -> void:
 		Color.PALE_GREEN,
 		Color.PALE_GREEN
 	)
+	if temp_reading != 0.0:
+		data.points.push_back(new_pt.position)
 	plot.add_event_point(new_pt, temp_reading != 0.0)
 	data.event_points.push_back(new_pt)
 	temp_in.text = ""
@@ -163,6 +183,7 @@ func _on_add_note_btn_pressed() -> void:
 
 func _on_save_btn_pressed() -> void:
 	data.roast_name = name_in.text
+	data.general_notes = general_notes_in.text
 	on_save.emit(data)
 
 

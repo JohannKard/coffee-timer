@@ -1,11 +1,9 @@
 res://main.tscn
 res://main_screen.tscn
 res://graph_point.tscn
-res://main.gd
-res://main_screen.gd
-res://roast_log.gd
-res://graph_point.gd
 res://log_list.tscn
-res://log_list.gd
 res://log_entry.tscn
-res://log_entry.gd
+res://main.gd
+res://log_list.gd
+res://roast_log.gd
+res://main_screen.gd
