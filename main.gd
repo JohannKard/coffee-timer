@@ -17,11 +17,14 @@ func _load_roast_logs() -> void:
 
 
 func _save_log(log_res_ref: RoastLog) -> void:
-	var file_path := "user://roasts/" + log_res_ref.roast_name + "_" + Time.get_date_string_from_system() + ".tres"
+	var file_path := "user://roasts/" + log_res_ref.roast_name + "_" + log_res_ref.roast_date + ".tres"
 	var save_result := ResourceSaver.save(log_res_ref, file_path)
 	if save_result != OK:
 		printerr(save_result)
-		save_result = ResourceSaver.save(log_res_ref, file_path + "(2)")
+		#save_result = ResourceSaver.save(log_res_ref, file_path + "(2)")
+	else:
+		roast_logs.push_back(log_res_ref)
+		_on_main_screen_on_menu_click()
 
 
 func _on_main_screen_on_save(log_res_ref: RoastLog) -> void:
@@ -39,4 +42,32 @@ func _on_log_list_on_view_entry(data: RoastLog) -> void:
 	$MainScreen.show()
 	$LogList.hide()
 	$MainScreen.load_log(data)
-	
+
+
+func _on_log_list_on_back_pressed() -> void:
+	$MainScreen.show()
+	$LogList.hide()
+
+
+func _on_log_list_on_new_pressed() -> void:
+	$MainScreen.show()
+	$LogList.hide()
+	$MainScreen.reset_all()
+
+
+func _on_log_list_on_compare_logs(data: RoastLog) -> void:
+	$MainScreen.show()
+	$LogList.hide()
+	$MainScreen.load_compare_graph(data)
+
+
+func _on_log_list_on_delete_log(data: RoastLog) -> void:
+	var file_path := "user://roasts/" + data.roast_name + "_" + data.roast_date + ".tres"
+	var access := DirAccess.open("user://roasts")
+	var success := access.remove_absolute(file_path)
+	if success != OK:
+		printerr("Could not delete log: " + file_path)
+	else:
+		var idx := roast_logs.find(data)
+		if idx != -1:
+			roast_logs.remove_at(idx)

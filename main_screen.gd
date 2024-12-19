@@ -10,6 +10,8 @@ var start_btn_status := false
 var timer := 0.0
 
 var plot: PlotItem = null
+var compare_plot: PlotItem = null
+var event_point_nodes: Array[GraphPoint] = []
 
 var _graph_point := preload("res://graph_point.tscn")
 
@@ -26,7 +28,7 @@ var _graph_point := preload("res://graph_point.tscn")
 @onready var note_in: LineEdit = $Container/Content/GraphControls/NoteIn
 @onready var general_notes_in: TextEdit = $Container/Content/GenNoteIn
 
-@onready var date_out: Label = $Container/Content/RoastInfo/DateOut
+@onready var date_out: Label = $Container/Content/TopBar/AppDetails/DateOut
 @onready var wgt_loss_out: Label = $Container/Content/RoastResults/WeightLossOut
 @onready var first_crack_out: Label = $Container/Content/RoastResults/FirstCrackOut
 @onready var timer_display: Label = $Container/Content/RoastingTimes/TimerGroup/TimerDisplay
@@ -41,6 +43,7 @@ func _ready() -> void:
 	data = RoastLog.new()
 	grn_wgt_in.text_changed.connect(_on_weight_text_changed)
 	rst_wgt_in.text_changed.connect(_on_weight_text_changed)
+	_reset_plot()
 
 
 func _process(delta: float) -> void:
@@ -49,7 +52,22 @@ func _process(delta: float) -> void:
 		timer_display.text = _get_time_text(timer)
 
 
+func _reset_plot() -> void:
+	if plot != null:
+		graph.remove_plot_item(plot)
+	plot = graph.add_plot_item("Roast 1", Color.GREEN, 1.0)
+	var pt = Vector2(0, 70)
+	plot.add_point(pt)
+	data.points.push_back(pt)
+
+
 func load_log(log_in: RoastLog) -> void:
+	# Reset timer on load
+	timer = data.final_roast_time
+	start_btn_status = false
+	start_btn.text = "Start"
+	
+	# Load log data
 	data = log_in
 	name_in.text = data.roast_name
 	roast_setting_in.text = data.initial_roaster_heat
@@ -57,18 +75,33 @@ func load_log(log_in: RoastLog) -> void:
 	rst_wgt_in.text = str(data.roast_wgt)
 	date_out.text = data.roast_date
 	wgt_loss_out.text = str(data.wgt_loss)
-	first_crack_out.text = str(data.first_crack_time)
-	timer_display.text = str(data.final_roast_time)
-	development_out.text = str(data.development_percentage)
+	first_crack_out.text = _get_time_text(data.first_crack_time)
+	timer_display.text = _get_time_text(data.final_roast_time)
+	development_out.text = _get_time_text(data.development_percentage)
 	general_notes_in.text = data.general_notes
 	_calculate_development()
-	if plot == null:
-		plot = graph.add_plot_item("Roast 1", Color.GREEN, 1.0)
+	
+	# Set plot points
+	event_point_nodes.clear()
+	if plot != null:
+		graph.remove_all()
+	plot = graph.add_plot_item("Roast 1", Color.GREEN, 1.0)
 	for pt in data.points:
 		plot.add_point(pt)
 	for pt in data.event_points:
-		plot.add_event_point(pt)
-		# TODO: fix this since it can't save node info, needs to be raw data to reinit
+		plot.add_event_point(_crete_new_event_point_from_data(pt))
+
+
+func load_compare_graph(log_in: RoastLog) -> void:
+	if compare_plot != null:
+		graph.remove_plot_item(compare_plot)
+	compare_plot = graph.add_plot_item(log_in.roast_name, Color.FIREBRICK, 1.0)
+	for pt in log_in.points:
+		compare_plot.add_point(pt)
+	for pt in log_in.event_points:
+		pt.color = Color.FIREBRICK
+		pt.label_color = Color.FIREBRICK
+		compare_plot.add_event_point(_crete_new_event_point_from_data(pt))
 
 
 func _calculate_development() -> void:
@@ -84,12 +117,24 @@ func _calculate_final_development() -> void:
 
 
 func _crete_new_event_point(pos: Vector2, lbl: String, color: Color, font_color: Color = Color.WHITE) -> GraphPoint:
+	var pt_data := GraphPointData.new()
+	pt_data.color = color
+	pt_data.label = lbl
+	pt_data.label_color = font_color
+	pt_data.pos = pos
+	data.event_points.push_back(pt_data)
+	var pt_scn = _crete_new_event_point_from_data(pt_data)
+	return pt_scn
+
+
+func _crete_new_event_point_from_data(pt_data: GraphPointData) -> GraphPoint:
 	var pt_scn := _graph_point.instantiate()
-	if pos.y == 0:
-		pos.y = 500.0
-	pt_scn.position = pos
-	pt_scn.set_label.call_deferred(lbl, font_color)
-	pt_scn.set_color.call_deferred(color)
+	if pt_data.pos.y == 0:
+		pt_data.pos.y = 500.0
+	pt_scn.position = pt_data.pos
+	pt_scn.set_label.call_deferred(pt_data.label, pt_data.label_color)
+	pt_scn.set_color.call_deferred(pt_data.color)
+	event_point_nodes.push_back(pt_scn)
 	return pt_scn
 
 
@@ -118,8 +163,6 @@ func _on_first_crack_btn_pressed() -> void:
 	first_crack_out.text = _get_time_text(data.first_crack_time)
 	_calculate_development()
 	#first_crack_btn.disabled = true
-	if plot == null:
-		plot = graph.add_plot_item("Roast 1", Color.GREEN, 1.0)
 	var temp_time := timer
 	var temp_reading := float(temp_in.text)
 	var new_pt := _crete_new_event_point(
@@ -129,7 +172,6 @@ func _on_first_crack_btn_pressed() -> void:
 		Color.BURLYWOOD
 	)
 	plot.add_event_point(new_pt, temp_reading != 0.0)
-	data.event_points.push_back(new_pt)
 	temp_in.text = ""
 
 
@@ -144,11 +186,6 @@ func _on_weight_text_changed(_new_text: String) -> void:
 
 func _on_add_temp_btn_pressed() -> void:
 	var pt: Vector2
-	if plot == null:
-		plot = graph.add_plot_item("Roast 1", Color.GREEN, 1.0)
-		pt = Vector2(0, 70)
-		plot.add_point(pt)
-		data.points.push_back(pt)
 	var temp_time := timer
 	var temp_reading := float(temp_in.text)
 	if temp_reading == 0.0:
@@ -160,8 +197,6 @@ func _on_add_temp_btn_pressed() -> void:
 
 
 func _on_add_note_btn_pressed() -> void:
-	if plot == null:
-		plot = graph.add_plot_item("Roast 1", Color.GREEN, 1.0)
 	var temp_reading := float(temp_in.text)
 	var temp_time := timer
 	var note := note_in.text
@@ -176,40 +211,42 @@ func _on_add_note_btn_pressed() -> void:
 	if temp_reading != 0.0:
 		data.points.push_back(new_pt.position)
 	plot.add_event_point(new_pt, temp_reading != 0.0)
-	data.event_points.push_back(new_pt)
 	temp_in.text = ""
 	note_in.text = ""
 
 
 func _on_save_btn_pressed() -> void:
+	data.initial_roaster_heat = roast_setting_in.text
 	data.roast_name = name_in.text
 	data.general_notes = general_notes_in.text
 	on_save.emit(data)
 
 
 func _on_reset_btn_pressed() -> void:
-	_reset_all()
+	reset_all()
 
 
 func _on_menu_btn_pressed() -> void:
 	on_menu_click.emit()
 
 
-func _reset_all() -> void:
+func reset_all() -> void:
 	start_btn_status = false
 	start_btn.text = "Start"
 	timer = 0.0
-	for pt in data.event_points:
+	for pt in event_point_nodes:
 		pt.queue_free()
 	data = RoastLog.new()
 	graph.remove_all()
+	_reset_plot()
 
 	name_in.text = ""
 	roast_setting_in.text = ""
 	grn_wgt_in.text = "100.0"
 	rst_wgt_in.text = ""
 	temp_in.text = ""
-
+	general_notes_in.text = ""
+	
 	date_out.text = "2001-01-01"
 	wgt_loss_out.text = "00.00"
 	first_crack_out.text = "00:00"

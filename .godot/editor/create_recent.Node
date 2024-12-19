@@ -1,10 +1,10 @@
+VBoxContainer
 MarginContainer
 Control
 Label
 HBoxContainer
 ColorRect
 HSeparator
-VBoxContainer
 LineEdit
 RichTextLabel
 Button

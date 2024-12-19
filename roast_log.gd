@@ -11,5 +11,5 @@ extends Resource
 @export var wgt_loss := 0.0
 @export var development_percentage := 0.0
 @export var points: Array[Vector2] = []
-@export var event_points := [] #Type is GraphPoint (but can't export it)
+@export var event_points: Array[GraphPointData] = [] #Type is GraphPoint (but can't export it)
 @export var general_notes := ""

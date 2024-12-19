@@ -68,3 +68,6 @@ icon = ExtResource("3_vneek")
 [node name="HSeparator" type="HSeparator" parent="Container/Content"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_6ax77")
+
+[connection signal="pressed" from="Container/Content/TopBar/BackBtn" to="." method="_on_back_btn_pressed"]
+[connection signal="pressed" from="Container/Content/TopBar/NewBtn" to="." method="_on_new_btn_pressed"]

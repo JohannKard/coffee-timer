@@ -22,4 +22,8 @@ layout_mode = 1
 
 [connection signal="on_menu_click" from="MainScreen" to="." method="_on_main_screen_on_menu_click"]
 [connection signal="on_save" from="MainScreen" to="." method="_on_main_screen_on_save"]
+[connection signal="on_back_pressed" from="LogList" to="." method="_on_log_list_on_back_pressed"]
+[connection signal="on_compare_logs" from="LogList" to="." method="_on_log_list_on_compare_logs"]
+[connection signal="on_delete_log" from="LogList" to="." method="_on_log_list_on_delete_log"]
+[connection signal="on_new_pressed" from="LogList" to="." method="_on_log_list_on_new_pressed"]
 [connection signal="on_view_entry" from="LogList" to="." method="_on_log_list_on_view_entry"]

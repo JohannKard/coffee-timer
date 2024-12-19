@@ -53,11 +53,22 @@ alignment = 1
 layout_mode = 2
 icon = ExtResource("1_2wytl")
 
-[node name="Title" type="Label" parent="Container/Content/TopBar"]
+[node name="AppDetails" type="VBoxContainer" parent="Container/Content/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="Container/Content/TopBar/AppDetails"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Coffee Roasting v0.1"
 label_settings = SubResource("LabelSettings_nix1x")
+horizontal_alignment = 1
+
+[node name="DateOut" type="Label" parent="Container/Content/TopBar/AppDetails"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "2001-01-01"
 horizontal_alignment = 1
 
 [node name="ResetBtn" type="Button" parent="Container/Content/TopBar"]
@@ -71,11 +82,11 @@ icon = ExtResource("4_n2fy2")
 [node name="RoastInfo" type="HBoxContainer" parent="Container/Content"]
 layout_mode = 2
 theme_override_constants/separation = 12
+alignment = 1
 
 [node name="NameIn" type="LineEdit" parent="Container/Content/RoastInfo"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
 placeholder_text = "Roast Name..."
 context_menu_enabled = false
@@ -84,6 +95,10 @@ shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
 selecting_enabled = false
 drag_and_drop_selection_enabled = false
+
+[node name="Control" type="Control" parent="Container/Content/RoastInfo"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 
 [node name="Label" type="Label" parent="Container/Content/RoastInfo"]
 layout_mode = 2
@@ -94,16 +109,6 @@ text = "Init. Heat"
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 placeholder_text = "00:00"
-
-[node name="DateLbl" type="Label" parent="Container/Content/RoastInfo"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Date: "
-
-[node name="DateOut" type="Label" parent="Container/Content/RoastInfo"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "2001-01-01"
 
 [node name="WgtDetails" type="HBoxContainer" parent="Container/Content"]
 layout_mode = 2

@@ -70,4 +70,6 @@ icon = ExtResource("2_x0kfk")
 layout_mode = 2
 icon = ExtResource("3_wxmud")
 
+[connection signal="pressed" from="Container/Details/DeleteBtn" to="." method="_on_delete_btn_pressed"]
 [connection signal="pressed" from="Container/Details/ViewBtn" to="." method="_on_view_btn_pressed"]
+[connection signal="pressed" from="Container/Details/CopyBtn" to="." method="_on_copy_btn_pressed"]
