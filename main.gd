@@ -4,6 +4,11 @@ var roast_logs: Array[RoastLog] = []
 
 
 func _ready() -> void:
+	if OS.get_name() != "Android":
+		get_window().set_size(Vector2(2400, 2400))
+	else:
+		get_window().unresizable = true
+		get_window().borderless = true
 	DirAccess.make_dir_absolute("user://roasts")
 	_load_roast_logs()
 

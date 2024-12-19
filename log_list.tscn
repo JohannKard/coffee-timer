@@ -57,7 +57,7 @@ icon = ExtResource("2_gepgu")
 [node name="Title" type="Label" parent="Container/Content/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Coffee Roasting v0.1"
+text = "Coffee Roasting v1.0"
 label_settings = SubResource("LabelSettings_psaym")
 horizontal_alignment = 1
 

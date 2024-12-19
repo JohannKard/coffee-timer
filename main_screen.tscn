@@ -61,7 +61,7 @@ alignment = 1
 [node name="Title" type="Label" parent="Container/Content/TopBar/AppDetails"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Coffee Roasting v0.1"
+text = "Coffee Roasting v1.0"
 label_settings = SubResource("LabelSettings_nix1x")
 horizontal_alignment = 1
 
@@ -286,7 +286,7 @@ theme_override_font_sizes/font_size = 32
 placeholder_text = "Graph Note"
 
 [node name="GenNoteIn" type="TextEdit" parent="Container/Content"]
-custom_minimum_size = Vector2(0, 500)
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
