@@ -43,6 +43,8 @@ func _ready() -> void:
 	data = RoastLog.new()
 	grn_wgt_in.text_changed.connect(_on_weight_text_changed)
 	rst_wgt_in.text_changed.connect(_on_weight_text_changed)
+	data.roast_date = Time.get_date_string_from_system()
+	date_out.text = data.roast_date
 	_reset_plot()
 
 
@@ -62,6 +64,7 @@ func _reset_plot() -> void:
 
 
 func load_log(log_in: RoastLog) -> void:
+	reset_all()
 	# Reset timer on load
 	timer = data.final_roast_time
 	start_btn_status = false
@@ -77,7 +80,7 @@ func load_log(log_in: RoastLog) -> void:
 	wgt_loss_out.text = str(data.wgt_loss)
 	first_crack_out.text = _get_time_text(data.first_crack_time)
 	timer_display.text = _get_time_text(data.final_roast_time)
-	development_out.text = _get_time_text(data.development_percentage)
+	development_out.text = str(data.development_percentage)
 	general_notes_in.text = data.general_notes
 	_calculate_development()
 	
@@ -149,8 +152,6 @@ func _on_start_btn_pressed() -> void:
 	if not start_btn_status: # Timer isn't running yet
 		start_btn.text = "Stop"
 		start_btn_status = true
-		data.roast_date = Time.get_date_string_from_system()
-		date_out.text = data.roast_date
 	else:
 		start_btn.text = "Start"
 		start_btn_status = false
@@ -247,12 +248,12 @@ func reset_all() -> void:
 	temp_in.text = ""
 	general_notes_in.text = ""
 	
-	date_out.text = "2001-01-01"
+	date_out.text = Time.get_date_string_from_system()
 	wgt_loss_out.text = "00.00"
 	first_crack_out.text = "00:00"
-	timer_display.text = "00.00"
-	fifteen_lbl.text = "00.00"
-	seventeen_lbl.text = "00.00"
-	twenty_lbl.text = "00.00"
-	twenty_two_lbl.text = "00.00"
+	timer_display.text = "00:00"
+	fifteen_lbl.text = "00:00"
+	seventeen_lbl.text = "00:00"
+	twenty_lbl.text = "00:00"
+	twenty_two_lbl.text = "00:00"
 	development_out.text = "00.00"

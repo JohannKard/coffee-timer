@@ -1,5 +1,6 @@
+res://log_list.tscn
+res://main.gd
+res://main_screen.gd
 res://main.tscn
 res://main_screen.tscn
-res://log_list.tscn
 res://log_entry.tscn
-res://main.gd

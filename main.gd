@@ -7,6 +7,7 @@ func _ready() -> void:
 	if OS.get_name() != "Android":
 		get_window().set_size(Vector2(2400, 2400))
 	else:
+		get_window().mode = Window.MODE_FULLSCREEN
 		get_window().unresizable = true
 		get_window().borderless = true
 	DirAccess.make_dir_absolute("user://roasts")
@@ -26,7 +27,6 @@ func _save_log(log_res_ref: RoastLog) -> void:
 	var save_result := ResourceSaver.save(log_res_ref, file_path)
 	if save_result != OK:
 		printerr(save_result)
-		#save_result = ResourceSaver.save(log_res_ref, file_path + "(2)")
 	else:
 		roast_logs.push_back(log_res_ref)
 		_on_main_screen_on_menu_click()
@@ -34,7 +34,8 @@ func _save_log(log_res_ref: RoastLog) -> void:
 
 func _on_main_screen_on_save(log_res_ref: RoastLog) -> void:
 	_save_log(log_res_ref)
-	roast_logs.push_back(log_res_ref)
+	roast_logs.push_front(log_res_ref)
+	$MainScreen.reset_all()
 
 
 func _on_main_screen_on_menu_click() -> void:
