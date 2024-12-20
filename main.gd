@@ -4,9 +4,8 @@ var roast_logs: Array[RoastLog] = []
 
 
 func _ready() -> void:
-	if OS.get_name() != "Android":
-		get_window().set_size(Vector2(2400, 2400))
-	else:
+	if OS.get_name() == "Android":
+		get_window().set_size(Vector2(1080, 2400))
 		get_window().mode = Window.MODE_FULLSCREEN
 		get_window().unresizable = true
 		get_window().borderless = true
@@ -69,8 +68,7 @@ func _on_log_list_on_compare_logs(data: RoastLog) -> void:
 
 func _on_log_list_on_delete_log(data: RoastLog) -> void:
 	var file_path := "user://roasts/" + data.roast_name + "_" + data.roast_date + ".tres"
-	var access := DirAccess.open("user://roasts")
-	var success := access.remove_absolute(file_path)
+	var success := DirAccess.remove_absolute(file_path)
 	if success != OK:
 		printerr("Could not delete log: " + file_path)
 	else:
