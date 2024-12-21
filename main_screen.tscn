@@ -212,28 +212,60 @@ text = "First Crack"
 
 [node name="Calculations" type="HBoxContainer" parent="Container/Content"]
 layout_mode = 2
-theme_override_constants/separation = 64
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="FifteenLbl" type="Label" parent="Container/Content/Calculations"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "15.0%: 00.00"
+text = "15.0%:"
+
+[node name="FifteenOut" type="Label" parent="Container/Content/Calculations"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+
+[node name="Control" type="Control" parent="Container/Content/Calculations"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
 
 [node name="SeventeenLbl" type="Label" parent="Container/Content/Calculations"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "17.5%: 00.00"
+text = "17.5%:"
+
+[node name="SeventeenOut" type="Label" parent="Container/Content/Calculations"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+
+[node name="Control2" type="Control" parent="Container/Content/Calculations"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
 
 [node name="TwentyLbl" type="Label" parent="Container/Content/Calculations"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "20.0%: 00.00"
+text = "20.0%:"
+
+[node name="TwentyOut" type="Label" parent="Container/Content/Calculations"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+
+[node name="Control3" type="Control" parent="Container/Content/Calculations"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
 
 [node name="TwentyTwoLbl" type="Label" parent="Container/Content/Calculations"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "22.5%: 00.00"
+text = "22.5%:"
+
+[node name="TwentyTwoOut" type="Label" parent="Container/Content/Calculations"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00:00"
 
 [node name="Development" type="HBoxContainer" parent="Container/Content"]
 layout_mode = 2

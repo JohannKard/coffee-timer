@@ -15,37 +15,60 @@ var event_point_nodes: Array[GraphPoint] = []
 
 var _graph_point := preload("res://graph_point.tscn")
 
-@onready var graph: Graph2D = $Container/Content/SinglePlot/Graph2D
+var graph: Graph2D
 
-@onready var start_btn: Button = $Container/Content/RoastingTimes/StartBtn
-@onready var first_crack_btn: Button = $Container/Content/RoastingTimes/FirstCrackBtn
+var start_btn: Button
+var first_crack_btn: Button
 
-@onready var name_in: LineEdit = $Container/Content/RoastInfo/NameIn
-@onready var roast_setting_in: LineEdit = $Container/Content/RoastInfo/RoastSettingIn
-@onready var grn_wgt_in: LineEdit = $Container/Content/WgtDetails/GreenWeightIn
-@onready var rst_wgt_in: LineEdit = $Container/Content/WgtDetails/RoastWeightIn
-@onready var temp_in: LineEdit = $Container/Content/GraphControls/TempIn
-@onready var note_in: LineEdit = $Container/Content/GraphControls/NoteIn
-@onready var general_notes_in: TextEdit = $Container/Content/GenNoteIn
+var name_in: LineEdit
+var roast_setting_in: LineEdit 
+var grn_wgt_in: LineEdit
+var rst_wgt_in: LineEdit
+var temp_in: LineEdit
+var note_in: LineEdit
+var general_notes_in: TextEdit
 
-@onready var date_out: Label = $Container/Content/TopBar/AppDetails/DateOut
-@onready var wgt_loss_out: Label = $Container/Content/RoastResults/WeightLossOut
-@onready var first_crack_out: Label = $Container/Content/RoastResults/FirstCrackOut
-@onready var timer_display: Label = $Container/Content/RoastingTimes/TimerGroup/TimerDisplay
-@onready var fifteen_lbl: Label = $Container/Content/Calculations/FifteenLbl
-@onready var seventeen_lbl: Label = $Container/Content/Calculations/SeventeenLbl
-@onready var twenty_lbl: Label = $Container/Content/Calculations/TwentyLbl
-@onready var twenty_two_lbl: Label = $Container/Content/Calculations/TwentyTwoLbl
-@onready var development_out: Label = $Container/Content/Development/DevelopmentOut
+var date_out: Label
+var wgt_loss_out: Label
+var first_crack_out: Label
+var timer_display: Label
+var fifteen_out: Label
+var seventeen_out: Label
+var twenty_out: Label
+var twenty_two_out: Label
+var development_out: Label
 
 
 func _ready() -> void:
+	_set_node_accessors()
 	data = RoastLog.new()
 	grn_wgt_in.text_changed.connect(_on_weight_text_changed)
 	rst_wgt_in.text_changed.connect(_on_weight_text_changed)
 	data.roast_date = Time.get_date_string_from_system()
 	date_out.text = data.roast_date
 	_reset_plot()
+
+
+func _set_node_accessors() -> void:
+	graph = $Container/Content/SinglePlot/Graph2D
+	start_btn = $Container/Content/RoastingTimes/StartBtn
+	first_crack_btn = $Container/Content/RoastingTimes/FirstCrackBtn
+	name_in = $Container/Content/RoastInfo/NameIn
+	roast_setting_in = $Container/Content/RoastInfo/RoastSettingIn
+	grn_wgt_in = $Container/Content/WgtDetails/GreenWeightIn
+	rst_wgt_in = $Container/Content/WgtDetails/RoastWeightIn
+	temp_in = $Container/Content/GraphControls/TempIn
+	note_in = $Container/Content/GraphControls/NoteIn
+	general_notes_in = $Container/Content/GenNoteIn
+	date_out = $Container/Content/TopBar/AppDetails/DateOut
+	wgt_loss_out = $Container/Content/RoastResults/WeightLossOut
+	first_crack_out = $Container/Content/RoastResults/FirstCrackOut
+	timer_display = $Container/Content/RoastingTimes/TimerGroup/TimerDisplay
+	fifteen_out = $Container/Content/Calculations/FifteenOut
+	seventeen_out = $Container/Content/Calculations/SeventeenOut
+	twenty_out = $Container/Content/Calculations/TwentyOut
+	twenty_two_out = $Container/Content/Calculations/TwentyTwoOut
+	development_out = $Container/Content/Development/DevelopmentOut
 
 
 func _process(delta: float) -> void:
@@ -108,10 +131,10 @@ func load_compare_graph(log_in: RoastLog) -> void:
 
 
 func _calculate_development() -> void:
-	fifteen_lbl.text = "15.0%: " + _get_time_text(data.first_crack_time / 0.85)
-	seventeen_lbl.text = "17.5%: " + _get_time_text(data.first_crack_time / 0.825)
-	twenty_lbl.text = "20.0%: " + _get_time_text(data.first_crack_time / 0.80)
-	twenty_two_lbl.text = "22.5%: " + _get_time_text(data.first_crack_time / 0.775)
+	fifteen_out.text =  _get_time_text(data.first_crack_time / 0.85)
+	seventeen_out.text = _get_time_text(data.first_crack_time / 0.825)
+	twenty_out.text = _get_time_text(data.first_crack_time / 0.80)
+	twenty_two_out.text = _get_time_text(data.first_crack_time / 0.775)
 
 
 func _calculate_final_development() -> void:
@@ -185,7 +208,7 @@ func _on_weight_text_changed(_new_text: String) -> void:
 	wgt_loss_out.text = str(data.wgt_loss).pad_decimals(2) + "%"
 
 
-func _on_add_temp_btn_pressed() -> void:
+func _on_add_temp_btn_pressed(_text: String) -> void:
 	var pt: Vector2
 	var temp_time := timer
 	var temp_reading := float(temp_in.text)
@@ -252,8 +275,8 @@ func reset_all() -> void:
 	wgt_loss_out.text = "00.00"
 	first_crack_out.text = "00:00"
 	timer_display.text = "00:00"
-	fifteen_lbl.text = "00:00"
-	seventeen_lbl.text = "00:00"
-	twenty_lbl.text = "00:00"
-	twenty_two_lbl.text = "00:00"
-	development_out.text = "00.00"
+	fifteen_out.text = "00:00"
+	seventeen_out.text = "00:00"
+	twenty_out.text = "00:00"
+	twenty_two_out.text = "00:00"
+	development_out.text = "00.00%"

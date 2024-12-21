@@ -1,8 +1,9 @@
-VBoxContainer
-MarginContainer
 Control
-Label
 HBoxContainer
+VBoxContainer
+MainScreen
+MarginContainer
+Label
 ColorRect
 HSeparator
 LineEdit

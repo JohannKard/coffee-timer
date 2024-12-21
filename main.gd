@@ -2,9 +2,14 @@ extends Control
 
 var roast_logs: Array[RoastLog] = []
 
+@onready var main_screen: MainScreen = $MainScreenDesktop
+
 
 func _ready() -> void:
 	if OS.get_name() == "Android":
+		main_screen.hide()
+		main_screen = $MainScreen
+		main_screen.show()
 		get_window().set_size(Vector2(1080, 2400))
 		get_window().mode = Window.MODE_FULLSCREEN
 		get_window().unresizable = true
@@ -34,36 +39,36 @@ func _save_log(log_res_ref: RoastLog) -> void:
 func _on_main_screen_on_save(log_res_ref: RoastLog) -> void:
 	_save_log(log_res_ref)
 	roast_logs.push_front(log_res_ref)
-	$MainScreen.reset_all()
+	main_screen.reset_all()
 
 
 func _on_main_screen_on_menu_click() -> void:
-	$MainScreen.hide()
+	main_screen.hide()
 	$LogList.show()
 	$LogList.load_logs(roast_logs)
 
 
 func _on_log_list_on_view_entry(data: RoastLog) -> void:
-	$MainScreen.show()
+	main_screen.show()
 	$LogList.hide()
-	$MainScreen.load_log(data)
+	main_screen.load_log(data)
 
 
 func _on_log_list_on_back_pressed() -> void:
-	$MainScreen.show()
+	main_screen.show()
 	$LogList.hide()
 
 
 func _on_log_list_on_new_pressed() -> void:
-	$MainScreen.show()
+	main_screen.show()
 	$LogList.hide()
-	$MainScreen.reset_all()
+	main_screen.reset_all()
 
 
 func _on_log_list_on_compare_logs(data: RoastLog) -> void:
-	$MainScreen.show()
+	main_screen.show()
 	$LogList.hide()
-	$MainScreen.load_compare_graph(data)
+	main_screen.load_compare_graph(data)
 
 
 func _on_log_list_on_delete_log(data: RoastLog) -> void:

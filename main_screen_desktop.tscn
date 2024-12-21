@@ -1,0 +1,359 @@
+[gd_scene load_steps=8 format=3 uid="uid://boycasw3nnqr1"]
+
+[ext_resource type="Script" path="res://main_screen_desktop.gd" id="1_ad1fc"]
+[ext_resource type="Texture2D" uid="uid://v52gvrta2186" path="res://icons/menu_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png" id="2_cfejk"]
+[ext_resource type="Texture2D" uid="uid://1bs0xkq5qvd3" path="res://icons/restart_alt_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png" id="3_h6gso"]
+[ext_resource type="Texture2D" uid="uid://drp4clvqd62yu" path="res://icons/save_32dp_E8EAED_FILL0_wght400_GRAD0_opsz40.png" id="4_jn0q2"]
+[ext_resource type="Texture2D" uid="uid://djq3tnrpugpvx" path="res://icons/add_16dp_E8EAED_FILL0_wght400_GRAD0_opsz20.png" id="5_rfcjt"]
+[ext_resource type="PackedScene" uid="uid://cuenvlwlam2mi" path="res://single_plot.tscn" id="6_i5rk2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nix1x"]
+font_size = 32
+
+[node name="MainScreenDesktop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ad1fc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.164706, 0.2, 0.239216, 1)
+
+[node name="Container" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Content" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TopBar" type="HBoxContainer" parent="Container/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="MenuBtn" type="Button" parent="Container/Content/TopBar"]
+layout_mode = 2
+icon = ExtResource("2_cfejk")
+
+[node name="AppDetails" type="VBoxContainer" parent="Container/Content/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="Container/Content/TopBar/AppDetails"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Coffee Roasting v1.0"
+label_settings = SubResource("LabelSettings_nix1x")
+horizontal_alignment = 1
+
+[node name="DateOut" type="Label" parent="Container/Content/TopBar/AppDetails"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "2001-01-01"
+horizontal_alignment = 1
+
+[node name="NameIn" type="LineEdit" parent="Container/Content/TopBar/AppDetails"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Roast Name..."
+context_menu_enabled = false
+clear_button_enabled = true
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="ResetBtn" type="Button" parent="Container/Content/TopBar"]
+layout_mode = 2
+icon = ExtResource("3_h6gso")
+
+[node name="SaveBtn" type="Button" parent="Container/Content/TopBar"]
+layout_mode = 2
+icon = ExtResource("4_jn0q2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Content"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/Content/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="WgtDetails" type="HBoxContainer" parent="Container/Content/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="GreenWeightLbl" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer/WgtDetails"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Green Weight:"
+
+[node name="GreenWeightIn" type="LineEdit" parent="Container/Content/HBoxContainer/VBoxContainer/WgtDetails"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "100.0"
+placeholder_text = "Green Wgt (g)"
+alignment = 2
+context_menu_enabled = false
+virtual_keyboard_type = 3
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="WgtDetails2" type="HBoxContainer" parent="Container/Content/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="RoastWeightLbl" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer/WgtDetails2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Roast Weight:"
+
+[node name="RoastWeightIn" type="LineEdit" parent="Container/Content/HBoxContainer/VBoxContainer/WgtDetails2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Wgt (g)"
+context_menu_enabled = false
+virtual_keyboard_type = 3
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="RoastResults" type="HBoxContainer" parent="Container/Content/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="WgtLossLbl" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer/RoastResults"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Weight Loss: "
+
+[node name="WeightLossOut" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer/RoastResults"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00.00%"
+
+[node name="Control" type="Control" parent="Container/Content/HBoxContainer/VBoxContainer/RoastResults"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="RoastingTimes" type="HBoxContainer" parent="Container/Content/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="StartBtn" type="Button" parent="Container/Content/HBoxContainer/RoastingTimes"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Start"
+
+[node name="TimerGroup" type="VBoxContainer" parent="Container/Content/HBoxContainer/RoastingTimes"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Init. Heat"
+
+[node name="RoastSettingIn" type="LineEdit" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "00:00"
+
+[node name="Control" type="Control" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="FirstCrackLbl" type="Label" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "First Crack: "
+
+[node name="FirstCrackOut" type="Label" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00.00"
+
+[node name="TimerDisplay" type="Label" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "00:00"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="GraphControls" type="HBoxContainer" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup"]
+layout_mode = 2
+alignment = 1
+
+[node name="AddTempBtn" type="Button" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+icon = ExtResource("5_rfcjt")
+
+[node name="TempIn" type="LineEdit" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Curr. Temp"
+context_menu_enabled = false
+virtual_keyboard_type = 2
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Control" type="Control" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="AddNoteBtn" type="Button" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls"]
+layout_mode = 2
+icon = ExtResource("5_rfcjt")
+
+[node name="NoteIn" type="LineEdit" parent="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Graph Note"
+
+[node name="FirstCrackBtn" type="Button" parent="Container/Content/HBoxContainer/RoastingTimes"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "First Crack"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Container/Content/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Calculations" type="VBoxContainer" parent="Container/Content/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Development" type="HBoxContainer" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="DevelopmentLbl" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/Development"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Final Development:"
+
+[node name="DevelopmentOut" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/Development"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00.00%"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="FifteenLbl" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "15.0%:"
+
+[node name="FifteenOut" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+
+[node name="Control" type="Control" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/HBoxContainer"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="SeventeenLbl" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "17.5%:"
+
+[node name="SeventeenOut" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TwentyLbl" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "20.0%:"
+
+[node name="TwentyOut" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+
+[node name="Control" type="Control" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/HBoxContainer2"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="TwentyTwoLbl" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "22.5%:"
+
+[node name="TwentyTwoOut" type="Label" parent="Container/Content/HBoxContainer/VBoxContainer2/Calculations/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+
+[node name="GenNoteIn" type="TextEdit" parent="Container/Content"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Enter notes here..."
+context_menu_enabled = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+
+[node name="SinglePlot" parent="Container/Content" instance=ExtResource("6_i5rk2")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="Container/Content/TopBar/MenuBtn" to="." method="_on_menu_btn_pressed"]
+[connection signal="pressed" from="Container/Content/TopBar/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[connection signal="pressed" from="Container/Content/TopBar/SaveBtn" to="." method="_on_save_btn_pressed"]
+[connection signal="pressed" from="Container/Content/HBoxContainer/RoastingTimes/StartBtn" to="." method="_on_start_btn_pressed"]
+[connection signal="pressed" from="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls/AddTempBtn" to="." method="_on_add_temp_btn_pressed"]
+[connection signal="text_submitted" from="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls/TempIn" to="." method="_on_add_temp_btn_pressed"]
+[connection signal="pressed" from="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls/AddNoteBtn" to="." method="_on_add_note_btn_pressed"]
+[connection signal="pressed" from="Container/Content/HBoxContainer/RoastingTimes/FirstCrackBtn" to="." method="_on_first_crack_btn_pressed"]

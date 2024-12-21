@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbayq1bgnyocu"]
+[gd_scene load_steps=5 format=3 uid="uid://bbayq1bgnyocu"]
 
 [ext_resource type="PackedScene" uid="uid://bqgrup86gqgh6" path="res://main_screen.tscn" id="1_eky5y"]
 [ext_resource type="Script" path="res://main.gd" id="1_mldjw"]
 [ext_resource type="PackedScene" uid="uid://cg4fy2iu0edfb" path="res://log_list.tscn" id="3_0g8nf"]
+[ext_resource type="PackedScene" uid="uid://boycasw3nnqr1" path="res://main_screen_desktop.tscn" id="4_2fr31"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -14,10 +15,14 @@ grow_vertical = 2
 script = ExtResource("1_mldjw")
 
 [node name="MainScreen" parent="." instance=ExtResource("1_eky5y")]
+visible = false
 layout_mode = 1
 
 [node name="LogList" parent="." instance=ExtResource("3_0g8nf")]
 visible = false
+layout_mode = 1
+
+[node name="MainScreenDesktop" parent="." instance=ExtResource("4_2fr31")]
 layout_mode = 1
 
 [connection signal="on_menu_click" from="MainScreen" to="." method="_on_main_screen_on_menu_click"]
@@ -27,3 +32,5 @@ layout_mode = 1
 [connection signal="on_delete_log" from="LogList" to="." method="_on_log_list_on_delete_log"]
 [connection signal="on_new_pressed" from="LogList" to="." method="_on_log_list_on_new_pressed"]
 [connection signal="on_view_entry" from="LogList" to="." method="_on_log_list_on_view_entry"]
+[connection signal="on_menu_click" from="MainScreenDesktop" to="." method="_on_main_screen_on_menu_click"]
+[connection signal="on_save" from="MainScreenDesktop" to="." method="_on_main_screen_on_save"]
