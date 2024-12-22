@@ -1,8 +1,8 @@
-res://main_screen_desktop.tscn
-res://main_screen_desktop.gd
 res://main.tscn
-res://main.gd
-res://main_screen.gd
+res://log_list.gd
 res://main_screen.tscn
 res://log_list.tscn
 res://log_entry.tscn
+res://main_screen_desktop.tscn
+res://main_screen.gd
+res://main_screen_desktop.gd

@@ -15,9 +15,8 @@ var roast_logs: Array[RoastLog] = []
 
 
 func load_logs(logs: Array[RoastLog]) -> void:
+	_clear_logs()
 	for i in range(logs.size()):
-		if roast_logs.size() > i and logs[i].roast_name == roast_logs[i].roast_name and logs[i].roast_date == roast_logs[i].roast_date:
-			continue
 		var new_entry: LogEntry = log_entry.instantiate()
 		new_entry.set_details(logs[i].roast_name, logs[i].roast_date)
 		new_entry.on_view_data_pressed.connect(_on_entry_view_clicked.bind(logs[i]))
@@ -25,6 +24,13 @@ func load_logs(logs: Array[RoastLog]) -> void:
 		new_entry.on_delete_pressed.connect(_on_delete_pressed.bind(logs[i]))
 		content.add_child(new_entry)
 		roast_logs.push_back(logs[i])
+
+
+func _clear_logs() -> void:
+	for roast_log in content.get_children():
+		if roast_log is LogEntry:
+			roast_log.queue_free()
+	roast_logs.clear()
 
 
 func _on_entry_view_clicked(data: RoastLog) -> void:

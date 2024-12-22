@@ -353,7 +353,5 @@ size_flags_vertical = 3
 [connection signal="pressed" from="Container/Content/TopBar/ResetBtn" to="." method="_on_reset_btn_pressed"]
 [connection signal="pressed" from="Container/Content/TopBar/SaveBtn" to="." method="_on_save_btn_pressed"]
 [connection signal="pressed" from="Container/Content/HBoxContainer/RoastingTimes/StartBtn" to="." method="_on_start_btn_pressed"]
-[connection signal="pressed" from="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls/AddTempBtn" to="." method="_on_add_temp_btn_pressed"]
-[connection signal="text_submitted" from="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls/TempIn" to="." method="_on_add_temp_btn_pressed"]
 [connection signal="pressed" from="Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls/AddNoteBtn" to="." method="_on_add_note_btn_pressed"]
 [connection signal="pressed" from="Container/Content/HBoxContainer/RoastingTimes/FirstCrackBtn" to="." method="_on_first_crack_btn_pressed"]

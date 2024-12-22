@@ -3,6 +3,7 @@ extends MainScreen
 func _set_node_accessors() -> void:
 	graph = $Container/Content/SinglePlot/Graph2D
 	start_btn = $Container/Content/HBoxContainer/RoastingTimes/StartBtn
+	add_temp_btn = $Container/Content/HBoxContainer/RoastingTimes/TimerGroup/GraphControls/AddTempBtn
 	first_crack_btn = $Container/Content/HBoxContainer/RoastingTimes/FirstCrackBtn
 	name_in = $Container/Content/TopBar/AppDetails/NameIn
 	roast_setting_in = $Container/Content/HBoxContainer/RoastingTimes/TimerGroup/HBoxContainer/RoastSettingIn

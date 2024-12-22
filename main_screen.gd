@@ -19,6 +19,7 @@ var graph: Graph2D
 
 var start_btn: Button
 var first_crack_btn: Button
+var add_temp_btn: Button
 
 var name_in: LineEdit
 var roast_setting_in: LineEdit 
@@ -42,6 +43,8 @@ var development_out: Label
 func _ready() -> void:
 	_set_node_accessors()
 	data = RoastLog.new()
+	add_temp_btn.pressed.connect(_on_add_temp_btn_pressed)
+	temp_in.text_submitted.connect(_on_add_temp_btn_pressed)
 	grn_wgt_in.text_changed.connect(_on_weight_text_changed)
 	rst_wgt_in.text_changed.connect(_on_weight_text_changed)
 	data.roast_date = Time.get_date_string_from_system()
@@ -53,6 +56,7 @@ func _set_node_accessors() -> void:
 	graph = $Container/Content/SinglePlot/Graph2D
 	start_btn = $Container/Content/RoastingTimes/StartBtn
 	first_crack_btn = $Container/Content/RoastingTimes/FirstCrackBtn
+	add_temp_btn = $Container/Content/GraphControls/AddTempBtn
 	name_in = $Container/Content/RoastInfo/NameIn
 	roast_setting_in = $Container/Content/RoastInfo/RoastSettingIn
 	grn_wgt_in = $Container/Content/WgtDetails/GreenWeightIn
@@ -208,7 +212,7 @@ func _on_weight_text_changed(_new_text: String) -> void:
 	wgt_loss_out.text = str(data.wgt_loss).pad_decimals(2) + "%"
 
 
-func _on_add_temp_btn_pressed(_text: String) -> void:
+func _on_add_temp_btn_pressed(_text: String = "") -> void:
 	var pt: Vector2
 	var temp_time := timer
 	var temp_reading := float(temp_in.text)
